@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Request Withdrawal for {{ hotspot.name }}</h3>
+<form method="post">{% csrf_token %}
+  <div class="form-group">
+    <label>Amount</label>
+    <input name="amount" class="form-control" required/>
+  </div>
+  <div class="form-group">
+    <label>Destination (e.g., MTN:+256... or Bank:IBAN...)</label>
+    <input name="destination" class="form-control" required/>
+  </div>
+  <button class="btn btn-primary">Request</button>
+</form>
+{% endblock %}

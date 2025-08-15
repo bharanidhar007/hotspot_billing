@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Vouchers — {{ hotspot.name }}</h3>
+<div class="mb-3">
+  <a class="btn btn-outline-secondary" href="{% url 'voucher-export-csv' hotspot.id %}">Export CSV</a>
+  <a class="btn btn-outline-secondary" href="{% url 'voucher-export-pdf' hotspot.id %}">Export PDF</a>
+</div>
+<table class="table table-sm table-striped">
+  <thead><tr><th>Code</th><th>Amount</th><th>Redeemed</th><th>Created</th></tr></thead>
+  <tbody>
+    {% for v in vouchers %}
+    <tr><td>{{ v.code }}</td><td>{{ v.amount }}</td><td>{{ v.is_redeemed }}</td><td>{{ v.created_at }}</td></tr>
+    {% empty %}
+    <tr><td colspan="4">No vouchers yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

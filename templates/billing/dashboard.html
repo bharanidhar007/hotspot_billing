@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h3>Dashboard</h3>
+      <div>Detected currency (by country): <strong>{{ currency }}</strong></div>
+      <div class="mt-2">Total revenue: <strong>{{ total_revenue }}</strong></div>
+      <div>Total vouchers: <strong>{{ total_vouchers }}</strong></div>
+      <canvas id="revenueChart" width="800" height="300" class="mt-4"></canvas>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+fetch("{% url 'billing-stats' %}")
+  .then(r=>r.json()).then(data=>{
+    const ctx=document.getElementById('revenueChart').getContext('2d');
+    new Chart(ctx,{type:'bar',
+      data:{labels:data.labels, datasets:[{label:'Revenue ({{ currency }})', data:data.revenue}]},
+      options:{}
+    });
+});
+</script>
+{% endblock %}
